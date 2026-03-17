@@ -361,3 +361,5 @@ const type_effectiveness =
         "Water": 0.625
     }
 };
+
+export default type_effectiveness;
