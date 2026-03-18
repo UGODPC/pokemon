@@ -6,6 +6,8 @@ import { Attack } from "./attack.js";
 
 class Pokemon
 {
+    static all_pokemons = {};
+
     constructor(nom)
     {
         let poke = pokemons.find(p => p.pokemon_name === nom && p.form === "Normal");
@@ -30,6 +32,11 @@ class Pokemon
             .filter(a => a !== undefined);
     }
 
+    get id_pokemon()
+    {
+        return this._id_pokemon;
+    }
+
     toString()
     {
         let nomsTypes = this._types_pokemon.map(t => t.type).join(', ');
@@ -40,5 +47,18 @@ class Pokemon
     }
 }
 
-let bulbasaur = new Pokemon("Bulbasaur");
+function fill_pokemons()
+{
+    for (let poke of pokemons)
+    {
+        if (poke.form !== "Normal") continue;
+        let pokemon = new Pokemon(poke.pokemon_name);
+        Pokemon.all_pokemons[pokemon.id_pokemon] = pokemon;
+    }
+}
+
+fill_pokemons();
+
+// Test
+let bulbasaur = Pokemon.all_pokemons[1];
 console.log(bulbasaur.toString());
