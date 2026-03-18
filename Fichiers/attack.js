@@ -1,6 +1,6 @@
-import pokemon_moves from "./Fichiers/Info Pokémons/pokemon_moves.js";
-import fast_moves from "./Fichiers/Info Pokémons/fast_moves.js";
-import charged_moves from "./Fichiers/Info Pokémons/charged_moves.js";
+import pokemon_moves from "./Info Pokémons/pokemon_moves.js";
+import fast_moves from "./Info Pokémons/fast_moves.js";
+import charged_moves from "./Info Pokémons/charged_moves.js";
 
 class Attack
 {
