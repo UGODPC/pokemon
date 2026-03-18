@@ -70,7 +70,7 @@ function fill_pokemons()
 fill_pokemons();
 
 // Test
-let bulbasaur = Pokemon.all_pokemons[1];
-console.log(bulbasaur.toString());
+// let bulbasaur = Pokemon.all_pokemons[1];
+// console.log(bulbasaur.toString());
 
 export { Pokemon };
