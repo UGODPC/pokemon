@@ -37,6 +37,16 @@ class Pokemon
         return this._id_pokemon;
     }
 
+    getTypes()
+    {
+        return this._types_pokemon;
+    }
+
+    getAttacks()
+    {
+        return this._attaques_rapides_pokemon.concat(this._attaques_chargees_pokemon);
+    }
+
     toString()
     {
         let nomsTypes = this._types_pokemon.map(t => t.type).join(', ');
@@ -62,3 +72,5 @@ fill_pokemons();
 // Test
 let bulbasaur = Pokemon.all_pokemons[1];
 console.log(bulbasaur.toString());
+
+export { Pokemon };
