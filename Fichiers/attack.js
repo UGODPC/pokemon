@@ -95,9 +95,9 @@ function fill_attacks()
 }
 
 fill_attacks();
-console.table(Attack.all_attacks);
+// console.table(Attack.all_attacks);
 
-let a1 = new Attack(365, "Test", "Normal", 75, 3000);
-console.log(a1.toString());
+// let a1 = new Attack(365, "Test", "Normal", 75, 3000);
+// console.log(a1.toString());
 
 export { Attack };

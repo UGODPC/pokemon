@@ -55,12 +55,12 @@ function fill_types() {
 
 fill_types();
 
-let type = Type.get("Bug");
-console.log(type.toString());
+// let type = Type.get("Bug");
+// console.log(type.toString());
 
-let memeType = Type.get("Bug");
-console.log(type === memeType);
+// let memeType = Type.get("Bug");
+// console.log(type === memeType);
 
-console.log(Type.all_types);
+// console.log(Type.all_types);
 
 export { Type };
