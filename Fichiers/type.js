@@ -62,3 +62,5 @@ let memeType = Type.get("Bug");
 console.log(type === memeType);
 
 console.log(Type.all_types);
+
+export { Type };
