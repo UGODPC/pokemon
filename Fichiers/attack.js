@@ -53,7 +53,7 @@ function fill_attacks()
     {
 
         let attack = new Attack(
-            move.id,
+            move.move_id,
             move.name,
             move.type,
             move.power,
@@ -68,7 +68,7 @@ function fill_attacks()
     {
 
         let attack = new Attack(
-            move.id,
+            move.move_id,
             move.name,
             move.type,
             move.power,
@@ -83,7 +83,7 @@ function fill_attacks()
     {
 
         let attack = new Attack(
-            move.id,
+            move.move_id,
             move.name,
             move.type,
             move.power,
