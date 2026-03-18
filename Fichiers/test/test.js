@@ -5,7 +5,7 @@ function getPokemonByType(typeName)
 {
     const tablo_pokemon = Object.values(Pokemon.all_pokemons);
     const res = tablo_pokemon.filter((pokemon) => pokemon._types_pokemon.some(type => type.type === typeName));
-
+    console.table(tablo_pokemon);
     console.log(`Liste des ${res.length} Pokemons :`);
     res.forEach(res => {
         console.log(`- ${res.toString()}`);
@@ -50,4 +50,26 @@ function fastFight(pokemonNameA, pokemonNameB)
 
 //console.table(getPokemonByType("Water"));
 getPokemonByType("Water");
+console.log("----------------------------------------");
+console.log("|                                      |");
+console.log("|                                      |");
+console.log("|                                      |");
+console.log("|                                      |");
+console.log("|                                      |");
+console.log("|                                      |");
+console.log("|                                      |");
+console.log("|                                      |");
+console.log("|                                      |");
+console.log("----------------------------------------");
 getAttacksByType("Bug");
+console.log("----------------------------------------");
+console.log("|                                      |");
+console.log("|                                      |");
+console.log("|                                      |");
+console.log("|                                      |");
+console.log("|                                      |");
+console.log("|                                      |");
+console.log("|                                      |");
+console.log("|                                      |");
+console.log("|                                      |");
+console.log("----------------------------------------");
