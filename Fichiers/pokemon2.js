@@ -1,6 +1,7 @@
 import pokemons from "./Info Pokémons/pokemons.js";
 import pokemon_types from "./Info Pokémons/pokemon_types.js";
 import pokemon_moves from "./Info Pokémons/pokemon_moves.js";
+import type_effectiveness from "./Info Pokémons/type_effectiveness.js";
 import { Type } from "./type.js";
 import { Attack } from "./attack.js";
 
@@ -45,6 +46,11 @@ class Pokemon
     getAttacks()
     {
         return this._attaques_rapides_pokemon.concat(this._attaques_chargees_pokemon);
+    }
+
+    getWeakestEnemies(attackName) 
+    {
+        
     }
 
     toString()
