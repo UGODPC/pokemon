@@ -47,6 +47,14 @@ class Pokemon
         return this._attaques_rapides_pokemon.concat(this._attaques_chargees_pokemon);
     }
 
+    getBestFastAttacksForEnnemy(print, pokemonName)
+    {
+        if(print == true)
+        {
+            
+        }
+    }
+
     toString()
     {
         let nomsTypes = this._types_pokemon.map(t => t.type).join(', ');

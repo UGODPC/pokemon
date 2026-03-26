@@ -5,7 +5,6 @@ function getPokemonByType(typeName)
 {
     const tablo_pokemon = Object.values(Pokemon.all_pokemons);
     const res = tablo_pokemon.filter((pokemon) => pokemon._types_pokemon.some(type => type.type === typeName));
-    //console.table(tablo_pokemon);
     console.log(`Liste des ${res.length} Pokemons par nom :`);
     res.forEach(res => {
         console.log(`- ${res.toString()}`);
@@ -73,7 +72,7 @@ function fastFight(pokemonNameA, pokemonNameB)
 
 }
 
-//console.table(getPokemonByType("Water"));
+//console.table(tablo_pokemon);
 getPokemonByType("Water");
 console.log("----------------------------------------");
 console.log("|                                      |");
@@ -123,3 +122,4 @@ console.log("|                                      |");
 console.log("|                                      |");
 console.log("|                                      |");
 console.log("----------------------------------------");
+Pokemon.getBestFastAttacksForEnemy(true, "Bulbasaur");
