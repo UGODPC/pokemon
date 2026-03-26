@@ -15,7 +15,7 @@ function getPokemonByType(typeName)
 
 function getPokemonByAttack(attackName)
 {
-
+    let tablo_pokemon = Object.values(Pokemon.all_pokemons);
 }
 
 function getAttacksByType(typeName) {
