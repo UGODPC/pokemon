@@ -48,7 +48,7 @@ class Pokemon
         return this._attaques_rapides_pokemon.concat(this._attaques_chargees_pokemon);
     }
 
-    getWeakestEnemies(attackName) 
+    static getWeakestEnemies(attackName) 
     {
         let attaque = Object.values(Attack.all_attacks).find(a => a.nom_attack === attackName);
         if (!attaque) {
@@ -75,7 +75,7 @@ class Pokemon
         }
 
         for (let p of pokemonsFaibles) {
-            console.log(p.toString());
+            console.log(`- ${p.toString()}`);
         }
 
         return pokemonsFaibles;
@@ -107,8 +107,8 @@ fill_pokemons();
 // let bulbasaur = Pokemon.all_pokemons[1];
 // console.log(bulbasaur.toString());
 
-// console.log("\n--- Test getWeakestEnemies ---");
-// bulbasaur.getWeakestEnemies("Water Gun");
-// bulbasaur.getWeakestEnemies("Fire Blast");
+console.log("\n--- Test getWeakestEnemies ---");
+Pokemon.getWeakestEnemies("Water Gun");
+Pokemon.getWeakestEnemies("Fire Blast");
 
 export { Pokemon };
