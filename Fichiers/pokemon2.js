@@ -74,7 +74,6 @@ class Pokemon
             }
         }
 
-        console.log(`Les Pokémons les plus vulnérables à l'attaque ${attackName} (Multiplicateur : x${maxEfficacite}) sont :`);
         for (let p of pokemonsFaibles) {
             console.log(p.toString());
         }
@@ -107,5 +106,9 @@ fill_pokemons();
 // Test
 // let bulbasaur = Pokemon.all_pokemons[1];
 // console.log(bulbasaur.toString());
+
+// console.log("\n--- Test getWeakestEnemies ---");
+// bulbasaur.getWeakestEnemies("Water Gun");
+// bulbasaur.getWeakestEnemies("Fire Blast");
 
 export { Pokemon };
