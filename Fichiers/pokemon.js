@@ -80,14 +80,6 @@ class Pokemon
         return pokemonsFaibles;
     }
 
-    /*getBestFastAttacksForEnnemy(print, pokemonName)
-    {
-        if(print == true)
-        {
-            
-        }
-    }*/
-
     toString()
     {
         let nomsTypes = this._types_pokemon.map(t => t.type).join(', ');
@@ -108,10 +100,44 @@ function fill_pokemons()
     }
 }
 
-fill_pokemons();
+function getBestFastAttacksForEnnemy(pokemonName)
+{
+    let attaque = Object.values(Attack.all_fast_attacks)
+    let pokemon = Object.values(Pokemon.all_pokemons).find(a => a.pokemon_name === pokemonName);
+    if (!pokemon) {
+        console.log(`Le Pokemon '${pokemonName}' n'a pas été trouvée.`);
+        return [];
+    }
 
+    let listeAttaque = {
+        atk: Attack,
+        pts: Number,
+        eff: Number
+    };
+    let typeAttaque = attaque.type_attack;
+    let efficacite = 1;
+    let maxEfficacite = -1;
+
+    for (let p of Object.values(Pokemon.all_pokemons)) {
+        for (let t of p.getTypes()) {
+            efficacite *= type_effectiveness[typeAttaque][t.type];
+        }
+    }
+
+    for (let b of Object.values(Pokemon.all_pokemons[pokemonName])) {
+        for (let a of Object.values(Pokemon.all_pokemons[this.name])) {
+            degats = attaque.power * efficacite * (a.base_attaque_pokemon / b.base_defense_pokemon);
+            let liste = listeAttaque.map((elem) => elem.atk = Attack.toString() , elem.pts = degats, elem.eff = efficacite)
+            return liste;
+        }
+    }
+}
+
+fill_pokemons();
+let bulbasaur = Pokemon.all_pokemons[1];
+bulbasaur.getBestFastAttacksForEnnemy("Ivysaur");
 // Test
-// let bulbasaur = Pokemon.all_pokemons[1];
 // console.log(bulbasaur.toString());
 
 export { Pokemon };
+export { getBestFastAttacksForEnnemy };

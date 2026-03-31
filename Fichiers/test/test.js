@@ -62,9 +62,9 @@ function getWeakestEnemies(attackName)
     Pokemon.getWeakestEnemies(attackName);
 }
 
-function getBestFastAttacksForEnemy(print, pokemonName)
+function getBestFastAttacksForEnemy(pokemonName)
 {
-
+    Pokemon.getBestFastAttacksForEnnemy(pokemonName);
 }
 
 function fastFight(pokemonNameA, pokemonNameB)
@@ -72,7 +72,10 @@ function fastFight(pokemonNameA, pokemonNameB)
 
 }
 
-//console.table(tablo_pokemon);
+let bulbasaur = Pokemon.all_pokemons[1];
+bulbasaur.getBestFastAttacksForEnemy("Ivysaur");
+
+//console.table(Pokemon.all_pokemons);
 getPokemonByType("Water");
 console.log("----------------------------------------");
 console.log("|                                      |");

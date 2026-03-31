@@ -107,8 +107,8 @@ fill_pokemons();
 // let bulbasaur = Pokemon.all_pokemons[1];
 // console.log(bulbasaur.toString());
 
-console.log("\n--- Test getWeakestEnemies ---");
-Pokemon.getWeakestEnemies("Water Gun");
-Pokemon.getWeakestEnemies("Fire Blast");
+//console.log("\n--- Test getWeakestEnemies ---");
+//Pokemon.getWeakestEnemies("Water Gun");
+//Pokemon.getWeakestEnemies("Fire Blast");
 
 export { Pokemon };
