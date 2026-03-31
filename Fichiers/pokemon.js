@@ -47,13 +47,48 @@ class Pokemon
         return this._attaques_rapides_pokemon.concat(this._attaques_chargees_pokemon);
     }
 
-    getBestFastAttacksForEnnemy(print, pokemonName)
+    static getWeakestEnnemies(attackName) 
+    {
+        let attaque = Object.values(Attack.all_attacks).find(a => a.nom_attack === attackName);
+        if (!attaque) {
+            console.log(`L'attaque '${attackName}' n'a pas été trouvée.`);
+            return [];
+        }
+
+        let typeAttaque = attaque.type_attack;
+        let maxEfficacite = -1;
+        let pokemonsFaibles = [];
+        let type_effectiveness = [];
+
+        for (let p of Object.values(Pokemon.all_pokemons)) {
+            let efficacite = 1;
+            for (let t of p.getTypes()) {
+                efficacite *= type_effectiveness[typeAttaque][t.type];
+            }
+
+            if (efficacite > maxEfficacite) {
+                maxEfficacite = efficacite;
+                pokemonsFaibles = [p];
+            } else if (efficacite === maxEfficacite) {
+                pokemonsFaibles.push(p);
+            }
+        }
+
+        console.log(`Les Pokémons les plus vulnérables à l'attaque ${attackName} (Multiplicateur : x${maxEfficacite}) sont :`);
+        for (let p of pokemonsFaibles) {
+            console.log(p.toString());
+        }
+
+        return pokemonsFaibles;
+    }
+
+    /*getBestFastAttacksForEnnemy(print, pokemonName)
     {
         if(print == true)
         {
             
         }
-    }
+    }*/
 
     toString()
     {
