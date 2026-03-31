@@ -1,4 +1,4 @@
-import { Pokemon } from "../pokemon.js";
+import { Pokemon } from "../pokemon2.js";
 import { Attack } from "../attack.js";
 
 function getPokemonByType(typeName)
@@ -57,9 +57,9 @@ function sortPokemonByTypeThenName()
     }
 }
 
-function getWeakestEnnemies(attackName)
+function getWeakestEnemies(attackName)
 {
-
+    Pokemon.getWeakestEnemies(attackName);
 }
 
 function getBestFastAttacksForEnemy(print, pokemonName)
@@ -122,7 +122,8 @@ console.log("|                                      |");
 console.log("|                                      |");
 console.log("|                                      |");
 console.log("----------------------------------------");
-Pokemon.getWeakestEnnemies("Bite");
+console.log(`Liste des Pokémons les plus vulnérables à l'attaque "Water Gun" :`);
+getWeakestEnemies("Water Gun");
 console.log("----------------------------------------");
 console.log("|                                      |");
 console.log("|                                      |");
