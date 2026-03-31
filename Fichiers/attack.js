@@ -5,6 +5,7 @@ import charged_moves from "./Info Pokémons/charged_moves.js";
 class Attack
 {
     static all_attacks = {};
+    static all_fast_attacks = {};
 
     constructor(id_attack, nom_attack, type_attack, puissance_attack, duree_attack)
     {
@@ -76,6 +77,7 @@ function fill_attacks()
         );
 
         Attack.all_attacks[move.move_id] = attack;
+        Attack.all_fast_attacks[move.move_id] = attack;
     }
 
     //Pour les attaques chargées
@@ -96,7 +98,6 @@ function fill_attacks()
 
 fill_attacks();
 // console.table(Attack.all_attacks);
-
 // let a1 = new Attack(365, "Test", "Normal", 75, 3000);
 // console.log(a1.toString());
 

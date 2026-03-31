@@ -58,7 +58,6 @@ class Pokemon
         let typeAttaque = attaque.type_attack;
         let maxEfficacite = -1;
         let pokemonsFaibles = [];
-        let type_effectiveness = [];
 
         for (let p of Object.values(Pokemon.all_pokemons)) {
             let efficacite = 1;
@@ -74,9 +73,8 @@ class Pokemon
             }
         }
 
-        console.log(`Les Pokémons les plus vulnérables à l'attaque ${attackName} (Multiplicateur : x${maxEfficacite}) sont :`);
         for (let p of pokemonsFaibles) {
-            console.log(p.toString());
+            console.log(`- ${p.toString()}`);
         }
 
         return pokemonsFaibles;
