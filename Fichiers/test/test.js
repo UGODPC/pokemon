@@ -1,4 +1,4 @@
-import { Pokemon } from "../pokemon2.js";
+import { Pokemon } from "../pokemon.js";
 import { Attack } from "../attack.js";
 
 function getPokemonByType(typeName)
@@ -57,23 +57,95 @@ function sortPokemonByTypeThenName()
     }
 }
 
-function getWeakestEnemies(attackName)
+function getWeakestEnnemies(attackName)
 {
-    Pokemon.getWeakestEnemies(attackName);
-}
-
-function getBestFastAttacksForEnemy(pokemonName)
-{
-    Pokemon.getBestFastAttacksForEnnemy(pokemonName);
+    Pokemon.getWeakestEnnemies(attackName);
 }
 
 function fastFight(pokemonNameA, pokemonNameB)
 {
-
+    let pokemonA = Object.values(Pokemon.all_pokemons).find(p => p._nom_pokemon === pokemonNameA);
+    let pokemonB = Object.values(Pokemon.all_pokemons).find(p => p._nom_pokemon === pokemonNameB);
+    
+    if(!pokemonA || !pokemonB)
+    {
+        console.log("Un des Pokémons n'a pas été trouvé.");
+        return;
+    }
+    
+    let staminaA = pokemonA._stamina_pokemon;
+    let staminaB = pokemonB._stamina_pokemon;
+    let tour = 1;
+    let historique = [];
+    
+    console.log(`Début du combat entre ${pokemonNameA} et ${pokemonNameB} !`);
+    console.log(`${pokemonNameA} (STA: ${staminaA}) vs ${pokemonNameB} (STA: ${staminaB})`);
+    console.log("----------------------------------------");
+    
+    while(staminaA > 0 && staminaB > 0)
+    {
+        //Tour du Pokémon A
+        let meilleureAttaqueA = pokemonA.getBestFastAttacksForEnnemy(false, pokemonNameB);
+        let attaqueA = meilleureAttaqueA[0];
+        let degatsA = Math.ceil(attaqueA.pts); //Arrondi à l'unité supérieure avec ceil
+        
+        staminaB -= degatsA;
+        
+        historique.push({
+            Tour: tour,
+            Attaquant: pokemonNameA,
+            ATK: staminaA,
+            Defenseur: pokemonNameB,
+            DEF: staminaB,
+            Nom_Attaque: attaqueA.atk.nom_attack,
+            Efficacite: attaqueA.eff,
+            Degats: degatsA,
+            Reste: staminaB
+        });
+        
+        if(staminaB <= 0)
+        {
+            break;
+        }
+        
+        //Tour du Pokémon B
+        let meilleureAttaqueB = pokemonB.getBestFastAttacksForEnnemy(false, pokemonNameA);
+        let attaqueB = meilleureAttaqueB[0];
+        let degatsB = Math.ceil(attaqueB.pts); //Arrondi à l'unité supérieure avec ceil
+        
+        staminaA -= degatsB;
+        
+        historique.push({
+            Tour: tour,
+            Attaquant: pokemonNameB,
+            ATK: staminaB,
+            Defenseur: pokemonNameA,
+            DEF: staminaA,
+            Nom_Attaque: attaqueB.atk.nom_attack,
+            Efficacite: attaqueB.eff,
+            Degats: degatsB,
+            Reste: staminaA
+        });
+        
+        tour++;
+    }
+    
+    console.table(historique);
+    console.log("----------------------------------------");
+    
+    if(staminaA <= 0 && staminaB <= 0)
+    {
+        console.log("Match nul ! Les deux Pokémons sont K.O. en même temps !");
+    }
+    else if (staminaA <= 0)
+    {
+        console.log(`${pokemonNameB} remporte le combat ! Il lui reste ${staminaB} points de stamina.`);
+    }
+    else
+    {
+        console.log(`${pokemonNameA} remporte le combat ! Il lui reste ${staminaA} points de stamina.`);
+    }
 }
-
-let bulbasaur = Pokemon.all_pokemons[1];
-bulbasaur.getBestFastAttacksForEnemy("Ivysaur");
 
 //console.table(Pokemon.all_pokemons);
 getPokemonByType("Water");
@@ -126,7 +198,7 @@ console.log("|                                      |");
 console.log("|                                      |");
 console.log("----------------------------------------");
 console.log(`Liste des Pokémons les plus vulnérables à l'attaque "Water Gun" :`);
-getWeakestEnemies("Water Gun");
+getWeakestEnnemies("Water Gun");
 console.log("----------------------------------------");
 console.log("|                                      |");
 console.log("|                                      |");
@@ -138,4 +210,17 @@ console.log("|                                      |");
 console.log("|                                      |");
 console.log("|                                      |");
 console.log("----------------------------------------");
-//Pokemon.getBestFastAttacksForEnemy(true, "Bulbasaur");
+let bulbasaur = Pokemon.all_pokemons[1];
+bulbasaur.getBestFastAttacksForEnnemy(true, "Ivysaur");
+console.log("----------------------------------------");
+console.log("|                                      |");
+console.log("|                                      |");
+console.log("|                                      |");
+console.log("|                                      |");
+console.log("|                                      |");
+console.log("|                                      |");
+console.log("|                                      |");
+console.log("|                                      |");
+console.log("|                                      |");
+console.log("----------------------------------------");
+fastFight("Bulbasaur", "Charizard");
