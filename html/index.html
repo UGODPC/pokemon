@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokédex</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="pagination-controls">
+        <button id="btn-prec">PRÉC</button>
+        <span id="page-info">Page <span id="current-page">1</span> / <span id="total-pages">1</span></span>
+        <button id="btn-suiv">SUIV</button>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Génération</th>
+                <th>Types</th>
+                <th>Endurance</th>
+                <th>Attaque</th>
+                <th>Défense</th>
+                <th>Image</th>
+            </tr>
+        </thead>
+        <tbody id="pokemon-table-body">
+        </tbody>
+    </table>
+
+    <div id="overlay" style="display:none;">
+        <div id="detail-popup">
+            <button id="btn-fermer">X</button>
+            <div id="detail-contenu"></div>
+        </div>
+    </div>
+
+    <div id="image-popup" style="display:none;">
+        <img id="image-popup-img" src="" alt="">
+    </div>
+
+    <script type="module" src="js/script.js"></script>
+</body>
+</html>
