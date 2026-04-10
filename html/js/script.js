@@ -48,6 +48,7 @@ function updatePagination() {
     document.getElementById('btn-suiv').disabled = (currentPage === totalPages);
 }
 
+
 function renderTable() {
     var tbody = document.getElementById('pokemon-table-body');
     tbody.innerHTML = '';
