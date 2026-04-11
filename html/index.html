@@ -7,17 +7,31 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div id="filtrage">
+        <div class="filtre-group">
+            <label for="type">Type :</label>
+            <select id="type-filter">
+                <option value="">Tous les types</option>
+            </select>
+        </div>
+        <div class="filtre-group">
+            <label for="attaque-rapide">Attaque rapide :</label>
+            <select id="attaque-rapide-filter">
+                <option value="">Toutes les attaques</option>
+            </select>
+        </div>
+        <div class="filtre-group">
+            <label for="nom-filter">Nom :</label>
+            <input type="text" id="nom-filter" placeholder="Rechercher un Pokémon...">
+        </div>
+    </div>
+
     <div id="pagination-controls">
         <button id="btn-prec">PRÉC</button>
         <span id="page-info">Page <span id="current-page">1</span> / <span id="total-pages">1</span></span>
         <button id="btn-suiv">SUIV</button>
     </div>
-    <div id="filtrage">
-        <select name="type" id="type">
-            <option value="">Aucun type sélectionné</option>
-            
-        </select>
-    </div>
+
     <table id="mainTable">
         <thead>
             <tr>

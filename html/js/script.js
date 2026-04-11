@@ -7,12 +7,51 @@ let colonneTri = "_id_pokemon";
 let ascTri = true;
 let filtrage = {
     type: null,
-    attaque: null,
+    attaqueRapide: null,
     nom: null
 };
 
+//Enlever les accents pour le filtrage
+function removeAccents(str) {
+    if (!str) return str;
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
+//Remplir le select dans le HTML
+function remplirFiltres() {
+    //Remplir les types
+    let typesSet = new Set();
+    pokemonsList.forEach(poke => {
+        poke.getTypes().forEach(t => typesSet.add(t.type));
+    });
+    let typesTri = Array.from(typesSet).sort();
+    let typeSelect = document.getElementById('type-filter');
+    typesTri.forEach(type => {
+        let option = document.createElement('option');
+        option.value = type;
+        option.textContent = type;
+        typeSelect.appendChild(option);
+    });
+
+    //Remplir les attaques rapides
+    let attaquesSet = new Set();
+    pokemonsList.forEach(poke => {
+        poke._attaques_rapides_pokemon.forEach(a => attaquesSet.add(a.nom_attack));
+    });
+    let attaquesTri = Array.from(attaquesSet).sort();
+    let attaqueSelect = document.getElementById('attaque-rapide-filter');
+    attaquesTri.forEach(attaque => {
+        let option = document.createElement('option');
+        option.value = attaque;
+        option.textContent = attaque;
+        attaqueSelect.appendChild(option);
+    });
+}
+
 function init() {
     pokemonsList = Object.values(Pokemon.all_pokemons);
+    
+    remplirFiltres();
     updatePagination();
     renderTable();
 
@@ -25,7 +64,7 @@ function init() {
     });
 
     document.getElementById('btn-suiv').addEventListener('click', function() {
-        var totalPages = Math.ceil(pokemonsList.length / itemsPerPage);
+        var totalPages = Math.ceil(filtrerListe().length / itemsPerPage);
         if (currentPage < totalPages) {
             currentPage++;
             updatePagination();
@@ -43,6 +82,29 @@ function init() {
         }
     });
 
+    //Pour la partie filtrage
+    document.getElementById('type-filter').addEventListener('change', function(e) {
+        filtrage.type = e.target.value === "" ? null : e.target.value;
+        currentPage = 1;
+        updatePagination();
+        renderTable();
+    });
+
+    document.getElementById('attaque-rapide-filter').addEventListener('change', function(e) {
+        filtrage.attaqueRapide = e.target.value === "" ? null : e.target.value;
+        currentPage = 1;
+        updatePagination();
+        renderTable();
+    });
+
+    document.getElementById('nom-filter').addEventListener('input', function(e) {
+        filtrage.nom = e.target.value === "" ? null : e.target.value;
+        currentPage = 1;
+        updatePagination();
+        renderTable();
+    });
+
+    //Pour la partie triage
     document.querySelectorAll("#mainTable th:not(.no-sort)").forEach(element => {
             element.addEventListener("click", function(e) {
                 const el = document.querySelector("#mainTable th.sorted");
@@ -59,23 +121,52 @@ function init() {
                 renderTable();
             })
     });
+}
 
+function filtrerListe() {
+    let result = [...pokemonsList];
+    
+    //Filtrage par type
+    if (filtrage.type) {
+        result = result.filter(poke => {
+            return poke.getTypes().some(t => t.type === filtrage.type);
+        });
+    }
+    
+    //Filtrage par attaque rapide
+    if (filtrage.attaqueRapide) {
+        result = result.filter(poke => {
+            return poke._attaques_rapides_pokemon.some(a => a.nom_attack === filtrage.attaqueRapide);
+        });
+    }
+    
+    //Filtrage par nom
+    if (filtrage.nom) {
+        let nomRecherche = removeAccents(filtrage.nom.toLowerCase());
+        result = result.filter(poke => {
+            let nomPokemon = removeAccents(poke._nom_pokemon.toLowerCase());
+            return nomPokemon.includes(nomRecherche);
+        });
+    }
+    
+    return result;
 }
 
 function updatePagination() {
-    var totalPages = Math.ceil(pokemonsList.length / itemsPerPage);
+    var filteredPokemons = filtrerListe();
+    var totalPages = Math.ceil(filteredPokemons.length / itemsPerPage);
     if (totalPages === 0) totalPages = 1;
+    
+    //Ajuster la page courante si elle dépasse
+    if (currentPage > totalPages) {
+        currentPage = totalPages;
+    }
 
     document.getElementById('current-page').innerText = currentPage;
     document.getElementById('total-pages').innerText = totalPages;
 
     document.getElementById('btn-prec').disabled = (currentPage === 1);
     document.getElementById('btn-suiv').disabled = (currentPage === totalPages);
-}
-
-function filtrerListe(elem)
-{
-    return true;
 }
 
 function trierListe(a, b)
@@ -121,19 +212,19 @@ function trierListe(a, b)
     return res;
 }
 
-
 function renderTable() {
     var tbody = document.getElementById('pokemon-table-body');
     tbody.innerHTML = '';
 
-    var start = (currentPage - 1) * itemsPerPage;
-    var end = start + itemsPerPage;
-    var pokemonsFiltre = pokemonsList.filter(filtrerListe);
-    var pokemonsTri = pokemonsFiltre.sort(trierListe); //Slice avant le sort selon le trie sur tout le tableau ou seulement par page...
+    var pokemonsFiltre = filtrerListe();
+    var pokemonsTri = pokemonsFiltre.sort(trierListe);
     if(ascTri == false)
     {
         pokemonsTri = pokemonsTri.toReversed();
     }
+    
+    var start = (currentPage - 1) * itemsPerPage;
+    var end = start + itemsPerPage;
     var pageItems = pokemonsTri.slice(start, end);
 
     for (var i = 0; i < pageItems.length; i++) {
@@ -167,7 +258,7 @@ function renderTable() {
 
         var tdImg = document.createElement('td');
         var img = document.createElement('img');
-        var formattedId = String(poke.id_pokemon).padStart(3, '0'); //Pour les pokemons qui ont un id de 1 à 99, forcer l'id à avoir un 0 devant (longueur 3)
+        var formattedId = String(poke.id_pokemon).padStart(3, '0');
         img.src = "images/" + formattedId + ".webp";
         img.alt = poke._nom_pokemon;
         img.addEventListener('mouseenter', function(e) {
