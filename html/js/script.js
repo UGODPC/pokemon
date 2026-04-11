@@ -93,7 +93,7 @@ function renderTable() {
 
         var tdImg = document.createElement('td');
         var img = document.createElement('img');
-        var formattedId = String(poke.id_pokemon).padStart(3, '0');
+        var formattedId = String(poke.id_pokemon).padStart(3, '0'); //Pour les pokemons qui ont un id de 1 à 99, forcer l'id à avoir un 0 devant (longueur 3)
         img.src = "images/" + formattedId + ".webp";
         img.alt = poke._nom_pokemon;
         img.addEventListener('mouseenter', function(e) {
@@ -104,12 +104,12 @@ function renderTable() {
             popupImg.src = "images/" + fId + ".webp";
             var popup = document.getElementById('image-popup');
             popup.style.display = 'block';
-            popup.style.left = (e.clientX + 20) + 'px';
+            popup.style.left = (e.clientX + -150) + 'px';
             popup.style.top = (e.clientY + 20) + 'px';
         });
         img.addEventListener('mousemove', function(e) {
             var popup = document.getElementById('image-popup');
-            popup.style.left = (e.clientX + 20) + 'px';
+            popup.style.left = (e.clientX + -150) + 'px';
             popup.style.top = (e.clientY + 20) + 'px';
         });
         img.addEventListener('mouseleave', function() {
