@@ -12,17 +12,22 @@
         <span id="page-info">Page <span id="current-page">1</span> / <span id="total-pages">1</span></span>
         <button id="btn-suiv">SUIV</button>
     </div>
-    <table>
+    <div id="filtrage">
+        <select name="type" id="type">
+            <option value="">Aucun type sélectionné</option>
+            
+        </select>
+    </div>
+    <table id="mainTable">
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Nom</th>
-                <th>Génération</th>
-                <th>Types</th>
-                <th>Endurance</th>
-                <th>Attaque</th>
-                <th>Défense</th>
-                <th>Image</th>
+                <th data-nomColonne="_id_pokemon">ID</th>
+                <th data-nomColonne="_nom_pokemon">Nom</th>
+                <th data-nomColonne="_types_pokemon">Types</th>
+                <th data-nomColonne="_stamina_pokemon">Endurance</th>
+                <th data-nomColonne="_base_attaque_pokemon">Attaque</th>
+                <th data-nomColonne="_base_defense_pokemon">Défense</th>
+                <th class="no-sort">Image</th>
             </tr>
         </thead>
         <tbody id="pokemon-table-body">

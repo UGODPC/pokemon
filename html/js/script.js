@@ -3,6 +3,13 @@ import { Pokemon } from '../data/class_pokemon.js';
 let currentPage = 1;
 const itemsPerPage = 25;
 let pokemonsList = [];
+let colonneTri = "_id_pokemon";
+let ascTri = true;
+let filtrage = {
+    type: null,
+    attaque: null,
+    nom: null
+};
 
 function init() {
     pokemonsList = Object.values(Pokemon.all_pokemons);
@@ -35,6 +42,24 @@ function init() {
             this.style.display = 'none';
         }
     });
+
+    document.querySelectorAll("#mainTable th:not(.no-sort)").forEach(element => {
+            element.addEventListener("click", function(e) {
+                const el = document.querySelector("#mainTable th.sorted");
+                currentPage = 1;
+                updatePagination();
+                if(el && el != e.target)
+                {
+                    el.classList.remove("sorted", "asc");
+                }
+                e.target.classList.toggle("asc");
+                e.target.classList.add("sorted");
+                colonneTri = e.target.getAttribute("data-nomColonne");
+                ascTri = e.target.classList.contains("asc");
+                renderTable();
+            })
+    });
+
 }
 
 function updatePagination() {
@@ -48,6 +73,54 @@ function updatePagination() {
     document.getElementById('btn-suiv').disabled = (currentPage === totalPages);
 }
 
+function filtrerListe(elem)
+{
+    return true;
+}
+
+function trierListe(a, b)
+{
+    let res = 0;
+    if(typeof a[colonneTri] === "string")
+    {
+        if(a[colonneTri] < b[colonneTri])
+        {
+            res = -1;
+        }
+        if(a[colonneTri] > b[colonneTri])
+        {
+            res = 1;
+        }
+    }
+
+    if(Array.isArray(a[colonneTri]))
+    {
+        if(a[colonneTri].join("") < b[colonneTri].join("")) //join pour les valeurs du tableau en chaînes de charactères.
+        {
+            res = -1;
+        }
+        if(a[colonneTri].join("") > b[colonneTri].join(""))
+        {
+            res = 1;
+        }
+    }
+
+    if(typeof a[colonneTri] === "number")
+    {
+        res = a[colonneTri] - b[colonneTri];
+    }
+    
+    if(res == 0)
+    {
+        res = a["_nom_pokemon"] < b["_nom_pokemon"] ? -1 : 1;
+        if(ascTri == false)
+        {
+            res *= -1; //Pour inverser le trie sur les noms quand il y a une égalité .
+        }
+    }
+    return res;
+}
+
 
 function renderTable() {
     var tbody = document.getElementById('pokemon-table-body');
@@ -55,7 +128,13 @@ function renderTable() {
 
     var start = (currentPage - 1) * itemsPerPage;
     var end = start + itemsPerPage;
-    var pageItems = pokemonsList.slice(start, end);
+    var pokemonsFiltre = pokemonsList.filter(filtrerListe);
+    var pokemonsTri = pokemonsFiltre.sort(trierListe); //Slice avant le sort selon le trie sur tout le tableau ou seulement par page...
+    if(ascTri == false)
+    {
+        pokemonsTri = pokemonsTri.toReversed();
+    }
+    var pageItems = pokemonsTri.slice(start, end);
 
     for (var i = 0; i < pageItems.length; i++) {
         var poke = pageItems[i];
@@ -69,11 +148,6 @@ function renderTable() {
         var tdNom = document.createElement('td');
         tdNom.innerText = poke._nom_pokemon;
         tr.appendChild(tdNom);
-
-        var tdGen = document.createElement('td');
-        var gen = getGeneration(poke.id_pokemon);
-        tdGen.innerText = "Génération " + gen;
-        tr.appendChild(tdGen);
 
         var tdTypes = document.createElement('td');
         tdTypes.innerText = poke.getTypes().map(function(t) { return t.type; }).join(', ');
@@ -140,7 +214,6 @@ function afficherDetail(pokemonId) {
     var html = '';
     html += '<h2>' + poke._nom_pokemon + ' (#' + poke.id_pokemon + ')</h2>';
     html += '<img src="images/' + formattedId + '.webp" alt="' + poke._nom_pokemon + '">';
-    html += '<p><strong>Génération :</strong> ' + getGeneration(poke.id_pokemon) + '</p>';
     html += '<p><strong>Types :</strong> ' + typesStr + '</p>';
     html += '<p><strong>Endurance :</strong> ' + poke._stamina_pokemon + '</p>';
     html += '<p><strong>Attaque de base :</strong> ' + poke._base_attaque_pokemon + '</p>';
@@ -182,18 +255,6 @@ function afficherDetail(pokemonId) {
 
     document.getElementById('detail-contenu').innerHTML = html;
     document.getElementById('overlay').style.display = 'flex';
-}
-
-function getGeneration(id) {
-    if (id <= 151) return 1;
-    if (id <= 251) return 2;
-    if (id <= 386) return 3;
-    if (id <= 493) return 4;
-    if (id <= 649) return 5;
-    if (id <= 721) return 6;
-    if (id <= 809) return 7;
-    if (id <= 905) return 8;
-    return 9;
 }
 
 init();

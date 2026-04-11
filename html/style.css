@@ -40,6 +40,28 @@ th, td {
 
 th {
     background-color: #dedede;
+    font-weight: normal;
+    cursor: pointer;
+}
+
+th.sorted
+{
+    font-weight: bold;
+}
+
+th.sorted::after
+{
+    content: " ↓";
+    display: inline;
+    color: inherit;
+    font-weight: bold;
+}
+
+th.asc::after
+{
+    content: " ↑";
+    display: inline;
+    color: inherit;
     font-weight: bold;
 }
 
