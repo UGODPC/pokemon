@@ -259,14 +259,14 @@ function renderTable() {
         var tdImg = document.createElement('td');
         var img = document.createElement('img');
         var formattedId = String(poke.id_pokemon).padStart(3, '0');
-        img.src = "images/" + formattedId + ".webp";
+        img.src = "webp/images/" + formattedId + ".webp";
         img.alt = poke._nom_pokemon;
         img.addEventListener('mouseenter', function(e) {
             var popupImg = document.getElementById('image-popup-img');
             var trParent = e.target.closest('tr');
             var pokId = trParent.getAttribute('data-pokemon-id');
             var fId = String(pokId).padStart(3, '0');
-            popupImg.src = "images/" + fId + ".webp";
+            popupImg.src = "webp/images/" + fId + ".webp";
             var popup = document.getElementById('image-popup');
             popup.style.display = 'block';
             popup.style.left = (e.clientX + -150) + 'px';
@@ -304,7 +304,7 @@ function afficherDetail(pokemonId) {
 
     var html = '';
     html += '<h2>' + poke._nom_pokemon + ' (#' + poke.id_pokemon + ')</h2>';
-    html += '<img src="images/' + formattedId + '.webp" alt="' + poke._nom_pokemon + '">';
+    html += '<img src="webp/images/' + formattedId + '.webp" alt="' + poke._nom_pokemon + '">';
     html += '<p><strong>Types :</strong> ' + typesStr + '</p>';
     html += '<p><strong>Endurance :</strong> ' + poke._stamina_pokemon + '</p>';
     html += '<p><strong>Attaque de base :</strong> ' + poke._base_attaque_pokemon + '</p>';
