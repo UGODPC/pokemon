@@ -1,6 +1,3 @@
-import { Pokemon } from "../data/class_pokemon.js";
-import { Attack } from "../data/class_attack.js";
-
 function getPokemonByType(typeName)
 {
     const tablo_pokemon = Object.values(Pokemon.all_pokemons);

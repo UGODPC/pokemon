@@ -1,5 +1,3 @@
-import { Pokemon } from '../data/class_pokemon.js';
-
 let currentPage = 1;
 const itemsPerPage = 25;
 let pokemonsList = [];

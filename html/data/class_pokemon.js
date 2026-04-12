@@ -1,10 +1,3 @@
-import pokemons from "./pokemons.js";
-import pokemon_types from "./pokemon_types.js";
-import pokemon_moves from "./pokemon_moves.js";
-import { Type } from "./class_type.js";
-import { Attack } from "./class_attack.js";
-import type_effectiveness from "./type_effectiveness.js";
-
 class Pokemon
 {
     static all_pokemons = {};
@@ -140,8 +133,3 @@ function fill_pokemons()
 }
 
 fill_pokemons();
-
-// Test
-// console.log(bulbasaur.toString());
-
-export { Pokemon };

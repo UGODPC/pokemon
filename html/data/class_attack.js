@@ -1,7 +1,3 @@
-import pokemon_moves from "./pokemon_moves.js";
-import fast_moves from "./fast_moves.js";
-import charged_moves from "./charged_moves.js";
-
 class Attack
 {
     static all_attacks = {};
@@ -97,8 +93,3 @@ function fill_attacks()
 }
 
 fill_attacks();
-// console.table(Attack.all_attacks);
-// let a1 = new Attack(365, "Test", "Normal", 75, 3000);
-// console.log(a1.toString());
-
-export { Attack };

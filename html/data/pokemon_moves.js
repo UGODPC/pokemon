@@ -17992,4 +17992,3 @@ const pokemon_moves =
         }
     ];
 
-export default pokemon_moves;

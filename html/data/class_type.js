@@ -1,5 +1,3 @@
-import type_effectiveness from "./type_effectiveness.js";
-
 class Type {
     static all_types = {};
 
@@ -54,13 +52,3 @@ function fill_types() {
 }
 
 fill_types();
-
-// let type = Type.get("Bug");
-// console.log(type.toString());
-
-// let memeType = Type.get("Bug");
-// console.log(type === memeType);
-
-// console.log(Type.all_types);
-
-export { Type };
