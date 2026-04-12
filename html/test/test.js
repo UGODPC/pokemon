@@ -1,5 +1,5 @@
-import { Pokemon } from "../pokemon.js";
-import { Attack } from "../attack.js";
+import { Pokemon } from "../data/class_pokemon.js";
+import { Attack } from "../data/class_attack.js";
 
 function getPokemonByType(typeName)
 {
